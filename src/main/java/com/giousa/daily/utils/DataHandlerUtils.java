@@ -41,7 +41,7 @@ public class DataHandlerUtils {
 
     public static String sqlLikeStr(String data){
         String dataStr = null;
-        if(!StringUtils.isEmpty(data)){
+        if(!StringUtil.isEmpty(data)){
             dataStr = "%"+data+"%";
         }
 

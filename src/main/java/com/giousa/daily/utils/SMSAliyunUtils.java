@@ -20,8 +20,12 @@ import java.util.Map;
  */
 public class SMSAliyunUtils {
 
-    private final static String sms_sign = "爱享康";
-    private final static String sms_login_template = "SMS_168081355";
+    private final static String sms_sign = "Daily";
+    //注册验证码
+    private final static String sms_reg_template = "SMS_177251728";
+
+    //登录验证码
+    private final static String sms_login_template = "SMS_177251950";
 
     /**
      * 发送短信
@@ -29,9 +33,9 @@ public class SMSAliyunUtils {
      * @param verifyCode
      * @return 1：成功  2：发送太频繁 3：发送失败
      */
-    public static synchronized int sendMsg(String phoneNum, String verifyCode){
+    public static synchronized int sendMsg(String phoneNum, String verifyCode,String type){
 
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIh6K3QYEOtQMo", "56jYl2vckHmKnduwQt4mAjLPfYNf64");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4Fz1MuhtPas3VWyXnrX2", "NwDZNDWaDGS4eDu8EemwFpiDzcBGlV");
 
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
@@ -42,7 +46,14 @@ public class SMSAliyunUtils {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phoneNum);
         request.putQueryParameter("SignName", sms_sign);
-        request.putQueryParameter("TemplateCode", sms_login_template);
+
+        if("login".equals(type)){
+            request.putQueryParameter("TemplateCode", sms_login_template);
+        }else if("reg".equals(type)){
+            request.putQueryParameter("TemplateCode", sms_reg_template);
+        }else {
+            return 3;
+        }
 
         Map<String, String> param= new HashMap<>();
         param.put("code", verifyCode);
@@ -54,7 +65,6 @@ public class SMSAliyunUtils {
             SMSResultBean smsResultBean = JSON.parseObject(response.getData(), SMSResultBean.class);
             if("OK".equals(smsResultBean.getCode())){
                 //存储验证码，用作注册和修改密码时校验 15分钟
-//                CookieUtils.writeCookie(httpServletResponse,"hes_cookie", sixRandomCode);
                 System.out.println("短信发送成功");
                 return 1;
             }else {

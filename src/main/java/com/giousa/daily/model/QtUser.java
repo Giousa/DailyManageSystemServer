@@ -1,5 +1,7 @@
 package com.giousa.daily.model;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import java.util.Date;
 
 public class QtUser {
@@ -11,6 +13,7 @@ public class QtUser {
 
     private String phone;
 
+    @Ignore
     private String password;
 
     private String address;

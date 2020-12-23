@@ -174,4 +174,135 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+
+
+  <select id="findQtUserExistFlagByPhone" resultType="boolean">
+    select exists(select * from qt_user where phone = #{phone})
+  </select>
+
+
+
+  <resultMap id="QtUserInfoVOMap" type="com.giousa.daily.bean.user.QtUserInfoVO" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <association property="companyInfo" javaType="com.giousa.daily.model.QtCompany" columnPrefix="c_">
+      <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+      <result column="simple_name" property="simpleName" jdbcType="VARCHAR" />
+      <result column="city" property="city" jdbcType="VARCHAR" />
+      <result column="address" property="address" jdbcType="VARCHAR" />
+    </association>
+    <association property="sortInfo" javaType="com.giousa.daily.model.QtSort" columnPrefix="s_">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="type" property="type" jdbcType="VARCHAR" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+      <result column="weight" property="weight" jdbcType="INTEGER" />
+    </association>
+    <association property="employeInfo" javaType="com.giousa.daily.bean.comp.QtCompanyEmployeUserVO" columnPrefix="e_">
+      <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="entry_dt" property="entryDt" jdbcType="VARCHAR" />
+      <result column="quit_dt" property="quitDt" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <select id="loginUserByPassword" resultMap="QtUserInfoVOMap">
+    select
+    u.*,
+    c.id c_id,
+    c.full_name c_full_name,
+    c.simple_name c_simple_name,
+    c.city c_city,
+    c.address c_address,
+    s.id s_id,
+    s.type s_type,
+    s.name s_name,
+    s.weight s_weight,
+    e.id e_id,
+    e.entry_dt e_entry_dt,
+    e.quit_dt e_quit_dt
+    from qt_user u
+    left join qt_company_employe e on e.user_id = u.id
+    left join qt_company c on e.company_id = c.id
+    left join qt_sort s on e.level_id = s.id
+    where u.phone = #{phone} and u.password = #{password}
+  </select>
+
+  <select id="loginUserBySms" resultMap="QtUserInfoVOMap">
+    select
+    u.*,
+    c.id c_id,
+    c.full_name c_full_name,
+    c.simple_name c_simple_name,
+    c.city c_city,
+    c.address c_address,
+    s.id s_id,
+    s.type s_type,
+    s.name s_name,
+    s.weight s_weight,
+    e.id e_id,
+    e.entry_dt e_entry_dt,
+    e.quit_dt e_quit_dt
+    from qt_user u
+    left join qt_company_employe e on e.user_id = u.id
+    left join qt_company c on e.company_id = c.id
+    left join qt_sort s on e.level_id = s.id
+    where u.phone = #{phone}
+  </select>
+
+  <select id="findUserInfo" resultMap="QtUserInfoVOMap">
+    select
+    u.*,
+    c.id c_id,
+    c.full_name c_full_name,
+    c.simple_name c_simple_name,
+    c.city c_city,
+    c.address c_address,
+    s.id s_id,
+    s.type s_type,
+    s.name s_name,
+    s.weight s_weight,
+    e.id e_id,
+    e.entry_dt e_entry_dt,
+    e.quit_dt e_quit_dt
+    from qt_user u
+    left join qt_company_employe e on e.user_id = u.id
+    left join qt_company c on e.company_id = c.id
+    left join qt_sort s on e.level_id = s.id
+    where u.id = #{id}
+  </select>
+
+  <select id="findUserList" resultMap="QtUserInfoVOMap">
+    select
+    u.*,
+    c.id c_id,
+    c.full_name c_full_name,
+    c.simple_name c_simple_name,
+    c.city c_city,
+    c.address c_address,
+    s.id s_id,
+    s.type s_type,
+    s.name s_name,
+    s.weight s_weight,
+    e.id e_id,
+    e.entry_dt e_entry_dt,
+    e.quit_dt e_quit_dt
+    from qt_user u
+    left join qt_company_employe e on e.user_id = u.id
+    left join qt_company c on e.company_id = c.id
+    left join qt_sort s on e.level_id = s.id
+    where
+    true
+    <if test="name != null and name != ''" >
+      and u.name like #{name}
+    </if>
+  </select>
 </mapper>
