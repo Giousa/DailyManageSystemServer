@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.giousa.daily.mapper.QtCompanyEmployeMapper" >
+  <resultMap id="BaseResultMap" type="com.giousa.daily.model.QtCompanyEmploye" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="level_id" property="levelId" jdbcType="VARCHAR" />
+    <result column="entry_dt" property="entryDt" jdbcType="DATE" />
+    <result column="quit_dt" property="quitDt" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_id, user_id, level_id, entry_dt, quit_dt, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qt_company_employe
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qt_company_employe
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.giousa.daily.model.QtCompanyEmploye" >
+    insert into qt_company_employe (id, company_id, user_id, 
+      level_id, entry_dt, quit_dt, 
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{levelId,jdbcType=VARCHAR}, #{entryDt,jdbcType=DATE}, #{quitDt,jdbcType=DATE}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.giousa.daily.model.QtCompanyEmploye" >
+    insert into qt_company_employe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="entryDt != null" >
+        entry_dt,
+      </if>
+      <if test="quitDt != null" >
+        quit_dt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=VARCHAR},
+      </if>
+      <if test="entryDt != null" >
+        #{entryDt,jdbcType=DATE},
+      </if>
+      <if test="quitDt != null" >
+        #{quitDt,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.giousa.daily.model.QtCompanyEmploye" >
+    update qt_company_employe
+    <set >
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=VARCHAR},
+      </if>
+      <if test="entryDt != null" >
+        entry_dt = #{entryDt,jdbcType=DATE},
+      </if>
+      <if test="quitDt != null" >
+        quit_dt = #{quitDt,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.giousa.daily.model.QtCompanyEmploye" >
+    update qt_company_employe
+    set company_id = #{companyId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      level_id = #{levelId,jdbcType=VARCHAR},
+      entry_dt = #{entryDt,jdbcType=DATE},
+      quit_dt = #{quitDt,jdbcType=DATE},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
