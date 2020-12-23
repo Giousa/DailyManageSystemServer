@@ -10,6 +10,9 @@ import com.giousa.daily.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Description:
  * Author:zhangmengmeng
@@ -25,6 +28,8 @@ public class QtCompanyServiceImpl implements QtCompanyService {
     @Override
     public ResultVO addOrUpdateCompany(QtCompany qtCompany) {
 
+        System.out.println(qtCompany);
+
         String fullName = qtCompany.getFullName();
         String city = qtCompany.getCity();
         if(StringUtil.isEmpty(fullName) || StringUtil.isEmpty(city)){
@@ -35,6 +40,10 @@ public class QtCompanyServiceImpl implements QtCompanyService {
         if(StringUtil.isEmpty(id)){
             //new
             qtCompany.setId(KeyUtil.getKeyId());
+            qtCompany.setStatus(1);
+            qtCompany.setWeight(0);
+            qtCompany.setCreateTime(new Date());
+            qtCompany.setUpdateTime(new Date());
 
             qtCompanyMapper.insert(qtCompany);
 
@@ -47,8 +56,9 @@ public class QtCompanyServiceImpl implements QtCompanyService {
             }
 
             qtCompany.setCreateTime(qtCompanyDB.getCreateTime());
+            qtCompany.setUpdateTime(new Date());
 
-            qtCompanyMapper.updateByPrimaryKey(qtCompany);
+            qtCompanyMapper.updateByPrimaryKeySelective(qtCompany);
 
             return ResultVO.ok("修改成功");
         }
@@ -56,16 +66,28 @@ public class QtCompanyServiceImpl implements QtCompanyService {
 
     @Override
     public ResultVO findCompanyList() {
-        return null;
+
+        List<QtCompany> list = qtCompanyMapper.findCompanyList();
+
+        return ResultVO.ok(list);
     }
 
     @Override
     public ResultVO findCompanyInfo(String id) {
-        return null;
+
+        QtCompany qtCompany = qtCompanyMapper.selectByPrimaryKey(id);
+        return ResultVO.ok(qtCompany);
     }
 
     @Override
     public ResultVO deleteCompany(String id) {
-        return null;
+
+        QtCompany qtCompanyDB = qtCompanyMapper.selectByPrimaryKey(id);
+        if(qtCompanyDB == null){
+            return ResultVO.error(ResultEnum.ID_IS_WRONG);
+        }
+
+        qtCompanyMapper.deleteCompany(id);
+        return ResultVO.ok("删除成功");
     }
 }

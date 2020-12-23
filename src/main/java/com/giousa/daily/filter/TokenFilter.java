@@ -17,14 +17,14 @@ public class TokenFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig)  {
-        System.out.println("拦截器：init");
+//        System.out.println("拦截器：init");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
 
-        System.out.println("拦截器：doFilter");
+//        System.out.println("拦截器：doFilter");
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setHeader("Access-Control-Allow-Origin", "*");
