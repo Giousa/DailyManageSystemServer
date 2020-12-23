@@ -7,18 +7,22 @@
     <result column="simple_name" property="simpleName" jdbcType="VARCHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.giousa.daily.model.QtCompany" extends="BaseResultMap" >
     <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, full_name, simple_name, city, address
+    id, full_name, simple_name, city, address, status, weight, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     profile
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -30,12 +34,14 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.giousa.daily.model.QtCompany" >
-    insert into qt_company (id, full_name, simple_name, 
-      city, address, profile
-      )
-    values (#{id,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{simpleName,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{profile,jdbcType=LONGVARCHAR}
-      )
+    insert into qt_company (id, full_name, simple_name,
+      city, address, status,
+      weight, create_time, update_time,
+      profile)
+    values (#{id,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{simpleName,jdbcType=VARCHAR},
+      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{weight,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{profile,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.giousa.daily.model.QtCompany" >
     insert into qt_company
@@ -54,6 +60,18 @@
       </if>
       <if test="address != null" >
         address,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
       </if>
       <if test="profile != null" >
         profile,
@@ -75,6 +93,18 @@
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="profile != null" >
         #{profile,jdbcType=LONGVARCHAR},
       </if>
@@ -95,6 +125,18 @@
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="profile != null" >
         profile = #{profile,jdbcType=LONGVARCHAR},
       </if>
@@ -107,6 +149,10 @@
       simple_name = #{simpleName,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       profile = #{profile,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -115,7 +161,11 @@
     set full_name = #{fullName,jdbcType=VARCHAR},
       simple_name = #{simpleName,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

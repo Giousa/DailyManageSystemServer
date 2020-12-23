@@ -18,8 +18,8 @@ public class UploadOSSUtils {
 
 
 	private static String endpoint = "oss-cn-shanghai.aliyuncs.com";
-	private static String accessKeyId = "yGsCO2Vot15wEyM5";
-	private static String accessKeySecret = "1I3fGHWWx68YBaC4E1ncFZjg1XFNBN";
+	private static String accessKeyId = "WWWWWWWWWWWW";
+	private static String accessKeySecret = "$$$$$$$$$";
 	private static String bucketName = "chdspine";
 	private static String picAddressHead = "https://axk.oss-cn-hangzhou.aliyuncs.com/";
 
