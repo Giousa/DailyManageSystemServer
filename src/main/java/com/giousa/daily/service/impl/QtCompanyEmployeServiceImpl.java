@@ -52,7 +52,9 @@ public class QtCompanyEmployeServiceImpl implements QtCompanyEmployeService {
 
         String entryDt = qtCompanyEmployeBody.getEntryDt();
         String quitDt = qtCompanyEmployeBody.getQuitDt();
-        if(StringUtil.isEmpty(entryDt)){
+        System.out.println(entryDt);
+        System.out.println(quitDt);
+        if(!StringUtil.isEmpty(entryDt)){
             try {
                 Date date = DateUtil.stringToDate(entryDt, "yyyy-MM-dd");
                 qtCompanyEmploye.setEntryDt(date);
@@ -61,7 +63,7 @@ public class QtCompanyEmployeServiceImpl implements QtCompanyEmployeService {
             }
         }
 
-        if(StringUtil.isEmpty(quitDt)){
+        if(!StringUtil.isEmpty(quitDt)){
             try {
                 Date date = DateUtil.stringToDate(quitDt, "yyyy-MM-dd");
                 qtCompanyEmploye.setQuitDt(date);

@@ -25,9 +25,9 @@ public class QtCompanyEmployeVO implements Serializable {
 
     private Integer levelId;
 
-    private Date entryDt;
+    private String entryDt;
 
-    private Date quitDt;
+    private String quitDt;
 
     private Integer status;
 

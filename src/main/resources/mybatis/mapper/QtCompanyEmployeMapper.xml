@@ -146,8 +146,8 @@
     <result column="company_id" property="companyId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="level_id" property="levelId" jdbcType="INTEGER" />
-    <result column="entry_dt" property="entryDt" jdbcType="DATE" />
-    <result column="quit_dt" property="quitDt" jdbcType="DATE" />
+    <result column="entry_dt" property="entryDt" jdbcType="VARCHAR" />
+    <result column="quit_dt" property="quitDt" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
