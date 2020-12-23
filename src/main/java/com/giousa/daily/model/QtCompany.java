@@ -103,19 +103,4 @@ public class QtCompany {
         this.profile = profile == null ? null : profile.trim();
     }
 
-    @Override
-    public String toString() {
-        return "QtCompany{" +
-                "id='" + id + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", simpleName='" + simpleName + '\'' +
-                ", city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                ", status=" + status +
-                ", weight=" + weight +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", profile='" + profile + '\'' +
-                '}';
-    }
 }

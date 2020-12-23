@@ -24,6 +24,8 @@ public class GlobalExceptionHandler {
         String message = ex.getMessage();
         if(message.contains("TooManyResultsException")){
             return ResultVO.error(ResultEnum.SQL_TOO_MANY_RESULTS);
+        }else if(message.contains("MySQLIntegrityConstraintViolationException")){
+            return ResultVO.error(ResultEnum.SQL_ID_HAS_EXIST);
         }
 
         return ResultVO.error(ResultEnum.SERVE_EXCEPTION);

@@ -1,6 +1,9 @@
 package com.giousa.daily.mapper;
 
 import com.giousa.daily.model.QtSort;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface QtSortMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface QtSortMapper {
     int updateByPrimaryKeySelective(QtSort record);
 
     int updateByPrimaryKey(QtSort record);
+
+    List<QtSort> findQtSortList(@Param("type") String type,@Param("name") String name);
 }

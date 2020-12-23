@@ -10,6 +10,7 @@ public enum ResultEnum {
 
     SERVE_EXCEPTION(11,"服务器繁忙，请稍后再试"),
     SQL_TOO_MANY_RESULTS(12,"数据库存在异常数据"),
+    SQL_ID_HAS_EXIST(13,"当前编号已存在"),
 
     ID_IS_WRONG(103,"编号异常"),
     PARAM_EMPTY(104,"参数不能为空"),
