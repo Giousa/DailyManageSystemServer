@@ -238,8 +238,6 @@ public class QtUserServiceImpl implements QtUserService {
     @Override
     public ResultVO findUserList(String name) {
 
-        System.out.println(name);
-        System.out.println(DataHandlerUtils.sqlLikeStr(name));
         List<QtUserInfoVO> list = qtUserMapper.findUserList(DataHandlerUtils.sqlLikeStr(name));
         return ResultVO.ok(list);
     }
