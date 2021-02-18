@@ -7,4 +7,8 @@ package com.giousa.daily.bean.test;
  * Email:65489469@qq.com
  */
 public class Test {
+
+    public static void main(String[] args) {
+        System.out.println("dev commit");
+    }
 }
