@@ -14,6 +14,8 @@ public class SupplierTest {
     public static void main(String[] args) {
         System.out.println("dev 2021-02-23 21:48:34");
 
+        System.out.println("master 2021-02-23 21:50:48");
+
 //        User user1 = new User("fff", 11);
 
         Supplier<User> user = () -> new User("aa",11);
