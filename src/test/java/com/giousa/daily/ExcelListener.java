@@ -252,6 +252,8 @@ public class ExcelListener extends AnalysisEventListener<TagWithReplyDTO> {
             osw.write("-- ----------------------------\n");
             osw.write(fileTopName);
             osw.write("-- ----------------------------\n");
+            osw.write("use consult_workbench;\n\n");
+
 
             switch (fileType){
                 case 1:
