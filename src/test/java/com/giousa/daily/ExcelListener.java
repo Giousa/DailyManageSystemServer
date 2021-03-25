@@ -75,8 +75,8 @@ public class ExcelListener extends AnalysisEventListener<TagWithReplyDTO> {
             }
         }
 
-        Long tagId = 120000l;
-        Long replyId = 120000l;
+        Long tagId = 122000l;
+        Long replyId = 122000l;
         Integer tagSort;
         Integer replySort;
 

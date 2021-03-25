@@ -161,7 +161,7 @@ public class PublicExcelListener extends AnalysisEventListener<PTagWithReplyDTO>
             switch (fileType){
                 case 1:
                     for(PTagDTO tagDTO : tagReplyAllInfo.getTagList()){
-                        String insertTag = "INSERT INTO `quick_reply_tag`(`id`, `tag_name`, `is_custom`, `dept_id`, `status`, `source`, `gmt_create`, `gmt_modify`) VALUES (%d, '%s', 1, %s, 1, 0, now(), now());\n";
+                        String insertTag = "INSERT INTO `quick_reply_tag`(`id`, `tag_name`, `is_custom`, `dept_id`, `status`, `source`, `gmt_create`, `gmt_modify`) VALUES (%d, '%s', 0, %s, 1, 0, now(), now());\n";
                         String format = String.format(insertTag,tagDTO.getId(),tagDTO.getTagName(),tagDTO.getDeptId());
                         osw.write(format);
                     }
@@ -169,7 +169,7 @@ public class PublicExcelListener extends AnalysisEventListener<PTagWithReplyDTO>
 
                 case 3:
                     for(PReplyDTO replyDTO : tagReplyAllInfo.getReplyList()){
-                        String insertReply = "INSERT INTO `quick_reply`(`id`, `is_custom`, `content`, `status`, `tag_id`, `click_count`, `user_id`, `gmt_create`, `gmt_modify`) VALUES (%d, 1, '%s', 1, %d, 0, 0, now(), now());\n";
+                        String insertReply = "INSERT INTO `quick_reply`(`id`, `is_custom`, `content`, `status`, `tag_id`, `click_count`, `user_id`, `gmt_create`, `gmt_modify`) VALUES (%d, 0, '%s', 1, %d, 0, 0, now(), now());\n";
                         String format = String.format(insertReply,replyDTO.getId(),replyDTO.getReplyContent(),replyDTO.getTagId());
                         osw.write(format);
                     }
