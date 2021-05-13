@@ -3,6 +3,8 @@ package com.giousa.daily.links;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -17,25 +19,32 @@ public class LinksInfoSqlTest {
          */
 
         /**
-         * 链接类型 代码取值:1-体检卡；2-家庭卡；3-名医卡；4-其他
+         * 链接类型 代码取值:1-体检卡；2-家庭卡；3-名医卡；100-其他
          */
+
+
 
         LinksInfo linksInfo = new LinksInfo();
 
-        linksInfo.setId(201L);
+        linksInfo.setId(121L);
 
-        linksInfo.setChannel("TASKS|WEB|TYXCX");
-        linksInfo.setType(2);
-        linksInfo.setTitle("家庭医生续费卡");
-        linksInfo.setSubTitle("子标题");
-        linksInfo.setSubText("子标题内容");
-        linksInfo.setImage(null);
-        linksInfo.setIntroduction("简介");
-        linksInfo.setKeywords("续费|家庭|360元");
+        linksInfo.setChannel("TYAPP|WEB|TYXCX|H5|WECHAT");
+        linksInfo.setType(100);
+        linksInfo.setTitle("糖尿病管理");
+        linksInfo.setImage("doctor-operationb6357f37-8d24-4f7c-a98c-9b9992b.png");
+        linksInfo.setIntroduction("一对一专病管理");
+        linksInfo.setKeywords("糖尿病");
 
+        //WX_XCX  前缀：/pages/bridge/webview/index?url=
+        /**
+         * 小程序： WX_XCX
+         * 微信：   WX
+         * 工作台： WORKBENCH
+         * H5：    H5
+         * 本地：  NATIVE
+         */
         linksInfo.setLinks(Arrays.asList(
-                new LinksUrls("TYAPP","1111"),
-                new LinksUrls("H5","22222")
+                new LinksUrls("H5","https://h5.test.shantaijk.cn/web-slow-disease/#/blankPage?customType=dm")
         ));
 
         printLinksInfoSql(linksInfo);
@@ -70,6 +79,8 @@ public class LinksInfoSqlTest {
             }else {
                 if(StringUtils.isNotEmpty(subText)){
                     sb.append("'{\"subTitle\":\""+subText+"\"}', ");
+                }else {
+                    sb.append("null, ");
                 }
             }
 
@@ -132,4 +143,24 @@ public class LinksInfoSqlTest {
             id++;
         }
     }
+
+    @Test
+    public void test2() throws UnsupportedEncodingException {
+//        String s = EncodeUtils.cnToEncode("https://h5.test.shantaijk.cn/commonh5/index.html#/productdetails?spuId=20210221000000000000000003232201");
+//
+//        String ss = URLEncoder.encode(String.valueOf(s), "utf-8");
+//        System.out.println(s);
+//        System.out.println(ss);
+
+//        乳腺病：https://h5.test.shantaijk.cn/web-slow-disease/#/blankPage?customType=mam
+//        心血管病：https://h5.test.shantaijk.cn/web-slow-disease/#/blankPage?customType=cvd
+//        糖尿病：https://h5.test.shantaijk.cn/web-slow-disease/#/blankPage?customType=dm
+//        String url = "https://h5.test.shantaijk.cn/web-slow-disease/#/blankPage?customType=mam";
+        String url = "https://h5.test.shantaijk.cn/web-slow-disease/#/blankPage?customType=dm";
+        String encodeUrl = URLEncoder.encode(url, "utf-8");
+
+        System.out.println("/pages/bridge/webview/index?url="+encodeUrl);
+
+    }
 }
+

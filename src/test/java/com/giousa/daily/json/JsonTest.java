@@ -2,6 +2,7 @@ package com.giousa.daily.json;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -120,5 +121,11 @@ public class JsonTest {
             System.out.println("执行任务_"+i);
         }
 
+    }
+
+    @Test
+    public void test5(){
+        String title = "AAA,ssss";
+        System.out.println(Lists.newArrayList(title));
     }
 }
