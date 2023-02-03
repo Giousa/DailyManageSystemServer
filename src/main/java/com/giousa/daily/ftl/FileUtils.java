@@ -7,9 +7,9 @@ import java.io.*;
 @Slf4j
 public class FileUtils {
 
-    public static void writeFile(String content) {
+    public static void writeFile(String content,String fileN) {
         // 在文件夹目录下新建文件
-        String fileName = "/Users/zhangmengmeng/Desktop/FTL_File/kv.html";
+        String fileName = "/Users/zhangmengmeng/Desktop/FTL_File/"+fileN;
         File file = new File(fileName);
         FileOutputStream fos = null;
         OutputStreamWriter osw = null;

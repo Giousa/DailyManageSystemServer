@@ -1,5 +1,6 @@
 package com.giousa.daily.ftl;
 
+import com.google.common.collect.Lists;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -7,9 +8,10 @@ import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class FTLBuilderUtils {
+public class FTLBuilderUtilsV2 {
 
     public static void main(String[] args) throws IOException, TemplateException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_0);
@@ -17,14 +19,33 @@ public class FTLBuilderUtils {
         // 设置模版资源目录
         configuration.setClassForTemplateLoading(configuration.getClass(), "/ftl");
         // 加载资源目录下的 ftl 文件，生成模版对象
-        Template template = configuration.getTemplate("test_ftl.ftl");
+        Template template = configuration.getTemplate("MybatisDOWithLombok.ftl");
         // 准备输出流，本例中为字符串输出，读者也可使用文件流将填充过的模版输出到文件
         StringWriter stringWriter = new StringWriter();
         // 数据准备，可以用 Map 装载数据，也可以用对象
-        Map<String, String> data = new HashMap<>();
-        data.put("category", "测试");
-        data.put("level", "2");
-        data.put("remark", "不就是看看");
+        Map<String, Object> data = new HashMap<>();
+        data.put("Package", "com.giousa.study");
+        data.put("TableName", "TeacherRecord");
+        List<ColumnData> columnDataList = Lists.newArrayList();
+        ColumnData columnData1 = new ColumnData();
+        columnData1.setComment("年龄");
+        columnData1.setType("Integer");
+        columnData1.setName("showName");
+
+        ColumnData columnData2 = new ColumnData();
+        columnData2.setComment("姓名");
+        columnData2.setType("String");
+        columnData2.setName("age");
+
+        ColumnData columnData3 = new ColumnData();
+        columnData3.setComment("主键ID");
+        columnData3.setType("Long");
+        columnData3.setName("id");
+
+        columnDataList.add(columnData1);
+        columnDataList.add(columnData2);
+        columnDataList.add(columnData3);
+        data.put("columnDataList", columnDataList);
 
         template.process(data, stringWriter);
         String content = stringWriter.toString();
@@ -38,7 +59,7 @@ public class FTLBuilderUtils {
     }
 
     private static void buildFile(String content) {
-        FileUtils.writeFile(content,"test.html");
+        FileUtils.writeFile(content,"TeacherRecord.java");
     }
 
 }
