@@ -1,5 +1,7 @@
 package com.giousa.daily.ftl;
 
+import com.giousa.daily.bean.ColumnData;
+import com.giousa.daily.utils.FileUtils;
 import com.google.common.collect.Lists;
 import freemarker.template.Configuration;
 import freemarker.template.Template;

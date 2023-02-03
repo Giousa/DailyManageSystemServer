@@ -1,5 +1,6 @@
 package com.giousa.daily.ftl;
 
+import com.giousa.daily.utils.FileUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

@@ -1,4 +1,4 @@
-package com.giousa.daily.ftl;
+package com.giousa.daily.bean;
 
 import lombok.Data;
 

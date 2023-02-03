@@ -1,4 +1,4 @@
-package com.giousa.daily.ftl;
+package com.giousa.daily.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
