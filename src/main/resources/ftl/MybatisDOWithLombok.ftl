@@ -18,7 +18,7 @@ private static final long serialVersionUID = 1L;
      * ${columnData.comment}
      */
     @ApiModelProperty(value = "${columnData.comment}")
-    private ${columnData.type} ${columnData.name};
+    private ${columnData.type} ${columnData.columnHumpName};
 
 </#list>
 }

@@ -8,9 +8,14 @@ import java.io.Serializable;
 public class ColumnData implements Serializable {
 
     /**
-     * 字段注释
+     * 字段名称(驼峰)
      */
-    private String comment;
+    private String columnCamelName;
+
+    /**
+     * 字段名称(蛇形)
+     */
+    private String columnSnakeName;
 
     /**
      * 字段类型
@@ -18,7 +23,12 @@ public class ColumnData implements Serializable {
     private String type;
 
     /**
-     * 字段名称
+     * 字段注释
      */
-    private String name;
+    private String comment;
+
+    /**
+     * 表数据
+     */
+    private TableData tableData;
 }

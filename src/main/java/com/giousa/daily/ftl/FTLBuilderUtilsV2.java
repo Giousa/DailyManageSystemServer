@@ -32,17 +32,17 @@ public class FTLBuilderUtilsV2 {
         ColumnData columnData1 = new ColumnData();
         columnData1.setComment("年龄");
         columnData1.setType("Integer");
-        columnData1.setName("showName");
+        columnData1.setColumnCamelName("showName");
 
         ColumnData columnData2 = new ColumnData();
         columnData2.setComment("姓名");
         columnData2.setType("String");
-        columnData2.setName("age");
+        columnData2.setColumnCamelName("age");
 
         ColumnData columnData3 = new ColumnData();
         columnData3.setComment("主键ID");
         columnData3.setType("Long");
-        columnData3.setName("id");
+        columnData3.setColumnCamelName("id");
 
         columnDataList.add(columnData1);
         columnDataList.add(columnData2);
