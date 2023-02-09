@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Date:2019/7/10
  * Email:65489469@qq.com
  */
-public class ResultVO implements Serializable{
+public class ResultVO implements Serializable {
 
     // 响应业务状态
     private Integer code;
@@ -80,21 +80,20 @@ public class ResultVO implements Serializable{
     }
 
 
-    public static ResultVO error(ResultEnum resultEnum){
+    public static ResultVO error(ResultEnum resultEnum) {
 
-        return new ResultVO(resultEnum.getCode(),resultEnum.getMessage(),null);
-    }
-    public static ResultVO error(Integer status, String msg){
-        return new ResultVO(status, msg,null);
+        return new ResultVO(resultEnum.getCode(), resultEnum.getMessage(), null);
     }
 
+    public static ResultVO error(Integer status, String msg) {
+        return new ResultVO(status, msg, null);
+    }
 
 
-        @Override
-	public String toString() {
-		return "ResultVO [code=" + code + ", message=" + message + ", data=" + data + "]";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "ResultVO [code=" + code + ", message=" + message + ", data=" + data + "]";
+    }
+
 
 }

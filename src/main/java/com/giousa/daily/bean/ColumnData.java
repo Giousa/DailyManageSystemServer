@@ -20,7 +20,7 @@ public class ColumnData implements Serializable {
     /**
      * 字段类型
      */
-    private String type;
+    private String columnType;
 
     /**
      * 字段注释

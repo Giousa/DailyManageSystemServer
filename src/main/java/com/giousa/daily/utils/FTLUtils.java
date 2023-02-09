@@ -67,6 +67,9 @@ public class FTLUtils {
             case "BIGINT UNSIGNED":
                 return "Long";
 
+            case "BIGINT":
+                return "Long";
+
             case "INT":
                 return "Integer";
 

@@ -39,7 +39,9 @@ public class FTLBuilderUtils {
     }
 
     private static void buildFile(String content) {
-        FileUtils.writeFile(content,"test.html");
+        String fileName = "/Users/zhangmengmeng/Desktop/FTL_File/test.html";
+
+        FileUtils.writeFile(fileName,content);
     }
 
 }

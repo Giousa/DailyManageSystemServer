@@ -4,13 +4,18 @@ import com.alibaba.fastjson.JSON;
 import com.giousa.daily.bean.ColumnData;
 import com.giousa.daily.bean.TableData;
 import com.giousa.daily.utils.FTLUtils;
+import com.giousa.daily.utils.FileUtils;
 import com.giousa.daily.utils.JdbcUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +57,7 @@ public class MysqlManagerUtils {
                 ColumnData columnData = new ColumnData();
                 columnData.setColumnCamelName(FTLUtils.snakeToCamel(column_name));
                 columnData.setColumnSnakeName(column_name);
-                columnData.setType(FTLUtils.sqlToType(type_name));
+                columnData.setColumnType(FTLUtils.sqlToType(type_name));
                 columnData.setComment(remarks);
 
                 TableData tableData2 = new TableData();
@@ -70,47 +75,50 @@ public class MysqlManagerUtils {
         System.out.println("表数据："+ JSON.toJSONString(tableMap));
         System.out.println("字段数据："+JSON.toJSONString(columnMap));
 
-        createSpringCodeFile();
+        createSpringCodeFile(tableMap,columnMap);
     }
 
     private static final String basePackageName = "com.giousa.diary";
 
-    private static void createSpringCodeFile() {
+    private static void createSpringCodeFile(Map<String, TableData> tableMap,Map<String,List<ColumnData>> columnMap) {
         List<Integer> list = Lists.newArrayList(1,2,3,4,5,6,7,8,9,10);
-        list.parallelStream().forEach(it -> {
-            switch (it){
-                case 1:
-                    createDO();
-                    break;
-                case 2:
-                    createDTO();
-                    break;
-                case 3:
-                    createMapper();
-                    break;
-                case 4:
-                    createXML();
-                    break;
-                case 5:
-                    createManager();
-                    break;
-                case 6:
-                    createController();
-                    break;
-                case 7:
-                    createConvert();
-                    break;
-                case 8:
-                    createPageQueryRequest();
-                    break;
-                case 9:
-                    createRequest();
-                    break;
-                case 10:
-                    createJSON();
-                    break;
-            }
+        tableMap.forEach((v1,v2) -> {
+            list.parallelStream().forEach(it -> {
+                switch (it){
+                    case 1:
+                        createDO(v1);
+                        break;
+                    case 2:
+                        createDTO();
+                        break;
+                    case 3:
+                        createMapper();
+                        break;
+                    case 4:
+                        createXML();
+                        break;
+                    case 5:
+                        createManager();
+                        break;
+                    case 6:
+                        createController();
+                        break;
+                    case 7:
+                        createConvert();
+                        break;
+                    case 8:
+                        createPageQueryRequest();
+                        break;
+                    case 9:
+                        createRequest();
+                        break;
+                    case 10:
+                        createJSON();
+                        break;
+                }
+            });
         });
+
 //        createDO();
 //        createDTO();
 //        createMapper();
@@ -123,8 +131,32 @@ public class MysqlManagerUtils {
 //        createJSON();
     }
 
-    private static void createDO() {
-        String packageName = basePackageName+".core.model";
+    private static String filePath = "/Users/zhangmengmeng/Desktop/FTL_File/";
+
+    private static void createDO(String tableSnakeName) {
+        try {
+            String packageName = basePackageName+".core.model";
+            Configuration configuration = new Configuration(Configuration.VERSION_2_3_0);
+            configuration.setDefaultEncoding("utf-8");
+            configuration.setClassForTemplateLoading(configuration.getClass(), "/ftl");
+            Template template = configuration.getTemplate("DO_template.ftl");
+            StringWriter stringWriter = new StringWriter();
+
+            TableData tableData = tableMap.get(tableSnakeName);
+            Map<String, Object> data = new HashMap<>();
+            data.put("packageName", packageName);
+            data.put("tableUpperCamelName", tableData.getTableUpperCamelName());
+            List<ColumnData> columnDataList = columnMap.get(tableSnakeName);
+            System.out.println("columnDataList: tableSnakeName = "+tableSnakeName);
+
+            data.put("columnDataList", columnDataList);
+            template.process(data, stringWriter);
+            String content = stringWriter.toString();
+            FileUtils.writeFile(filePath+tableData.getTableUpperCamelName()+".java",content);
+            System.out.println("DO文件生成完毕！");
+        }catch (Exception e){
+            System.out.println("DO文件生成失败！"+tableSnakeName);
+        }
     }
 
     private static void createDTO() {
@@ -157,4 +189,5 @@ public class MysqlManagerUtils {
     private static void createJSON() {
 
     }
+
 }
